@@ -39,9 +39,9 @@ def predict_soh(input_data):
 def soh_status(soh, threshold=0.6):
     """Classify battery health based on threshold"""
     if soh < threshold:
-        return "The battery has is critical ⚠️"
+        return "The battery has is critical"
     else:
-        return "The battery is healthy ✅"
+        return "The battery is healthy"
 
 def askGemini(prompt):
     """Send a query to the Gemini API."""
