@@ -1,12 +1,10 @@
 
 # SOFE3370 Final Project – Linear Regression for Battery SOH
 
-
 import os
 import re
 import pandas as pd
 import numpy as np
-import joblib
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -87,11 +85,6 @@ def train_regression(X, y):
     model = LinearRegression()
     model.fit(X_train_scaled, y_train)
     y_pred = model.predict(X_test_scaled)
-
-    # Save trained model for chatbot integration
-    model_path = os.path.join(SAVE_DIR, "linear_regression_model.pkl")
-    joblib.dump(model, model_path)
-    print(f"Model saved to {model_path}")
 
     # Evaluate model
     r2 = r2_score(y_test, y_pred)
