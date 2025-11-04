@@ -1,4 +1,5 @@
- SOFE3370 Final Project — Battery Pack SOH Prediction with Linear Regression
+ SOFE3370 Final Project 
+ Battery Pack SOH Prediction with Linear Regression
  Group 4
 
 
@@ -46,6 +47,7 @@ FINAL_PROJECT_ALG/
           soh_prediction_plot.png  
      README.md - Project documentation  
      explanatory_document.pdf 
+
 
 
 
