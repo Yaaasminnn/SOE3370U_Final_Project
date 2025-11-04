@@ -1,9 +1,8 @@
-# SOFE3370 Final Project — Battery Pack SOH Prediction with Linear Regression
-## Group 4
+ SOFE3370 Final Project — Battery Pack SOH Prediction with Linear Regression
+ Group 4
 
----
 
-## Project Overview
+ Project Overview
 This project develops a Linear Regression model to predict the State of Health (SOH) of battery packs using voltage data (U1–U21) from the PulseBat Dataset.  
 The system preprocesses the dataset, aggregates voltage readings, trains a regression model, and evaluates its predictive performance.
 
@@ -11,9 +10,8 @@ The project consists of two main components:
 - **Dataset Preprocessing and Aggregation:** Automatically detects voltage columns U1–U21, removes missing or invalid values, calculates the Pack SOH as the normalized average of all cells, and exports a cleaned dataset ready for training.  
 - **Model Training and Evaluation:** Splits data into training (80%) and testing (20%) subsets, applies feature scaling using StandardScaler, trains a LinearRegression model from scikit-learn, evaluates model accuracy (R², MSE, MAE), and generates a plot comparing Actual vs Predicted SOH.
 
----
 
-## Program Execution and Results
+Program Execution and Results
 The system requires Python version 3.9 or later for execution.  
 To install the required libraries, run the following command in the terminal:
 
@@ -37,9 +35,7 @@ MAE: 0.036552
 
 These results demonstrate that the model effectively predicts the State of Health with acceptable accuracy.
 
----
-
-## Project Directory Structure
+ Project Directory Structure
 FINAL_PROJECT_ALG/  
  
     train_linear_regression.py  
@@ -48,8 +44,9 @@ FINAL_PROJECT_ALG/
           preprocessed_dataset.csv  
           model_metrics.txt  
           soh_prediction_plot.png  
-     README.md ← Project documentation  
+     README.md - Project documentation  
      explanatory_document.pdf 
+
 
 
 
