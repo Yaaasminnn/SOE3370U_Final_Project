@@ -16,13 +16,17 @@ Program Execution and Results
 The system requires Python version 3.9 or later for execution.  
 To install the required libraries, run the following command in the terminal:
 
-pip install pandas numpy scikit-learn matplotlib openpyxl  
+```bash
+pip install pandas numpy scikit-learn matplotlib openpyxl flash
+```
 
 Both **train_linear_regression.py** and **PulseBat Dataset (1).xlsx** must be located in the same directory.  
 
 Execute the program in VS Code or the terminal with the command:
 
-python train_linear_regression.py  
+```bash
+python train_linear_regression.py
+```
 
 After running, the program automatically creates a **results** folder containing three essential files:  
 - **preprocessed_dataset.csv** → cleaned dataset ready for training  
@@ -36,6 +40,15 @@ MAE: 0.036552
 
 These results demonstrate that the model effectively predicts the State of Health with acceptable accuracy.
 
+To run the chatbot as a CLI application:
+```bash
+py bot.py
+```
+To run the chatbot with a web interface
+```bash
+py server.py
+```
+
  Project Directory Structure
 FINAL_PROJECT_ALG/  
  
@@ -47,6 +60,8 @@ FINAL_PROJECT_ALG/
           soh_prediction_plot.png  
      README.md - Project documentation  
      explanatory_document.pdf 
+
+
 
 
 
