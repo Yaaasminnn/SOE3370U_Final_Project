@@ -60,33 +60,35 @@ def askGemini(prompt):
         return f"Error: {e}"
 
 # CLI Chatbot
-print("Battery Health Chatbot")
-print("Type 'check battery' to predict SOH, or ask general battery questions.")
-print("Type 'exit' to quit.\n")
+if __name__ == "__main__":
+    print("Battery Health Chatbot")
+    print("Type 'check battery' to predict SOH, or ask general battery questions.")
+    print("Type 'exit' to quit.\n")
 
-while True:
-    user_input = input("You: ").strip().lower()
+    while True:
+        user_input = input("You: ").strip().lower()
 
-    if user_input == "exit":
-        print("Goodbye.")
-        break
+        if user_input == "exit":
+            print("Goodbye.")
+            break
 
-    elif "check battery" in user_input:
-        print("\nEnter voltage readings for 21 cells (U1–U21).")
-        readings = []
-        try:
-            for i in range(1, 22):
-                val = float(input(f"U{i}: "))
-                readings.append(val)
-            soh = predict_soh(readings)
-            if soh is None:
-                print("Could not compute prediction.")
-            else:
-                print(f"\nPredicted SOH: {soh:.3f}")
-                print(soh_status(soh))
-        except ValueError:
-            print("Invalid input. Please enter only numeric values.\n")
+        elif "check battery" in user_input:
+            print("\nEnter voltage readings for 21 cells (U1–U21).")
+            readings = []
+            try:
+                for i in range(1, 22):
+                    val = float(input(f"U{i}: "))
+                    readings.append(val)
+                soh = predict_soh(readings)
+                if soh is None:
+                    print("Could not compute prediction.")
+                else:
+                    print(f"\nPredicted SOH: {soh:.3f}")
+                    print(soh_status(soh))
+            except ValueError:
+                print("Invalid input. Please enter only numeric values.\n")
 
-    else:
-        reply = askGemini(user_input)
-        print(f"Bot: {reply}\n")
+        else:
+            reply = askGemini(user_input)
+            print(f"Bot: {reply}\n")
+
