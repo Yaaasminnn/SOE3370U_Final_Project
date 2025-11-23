@@ -22,7 +22,9 @@ Both **train_linear_regression.py** and **PulseBat Dataset (1).xlsx** must be lo
 
 Execute the program in VS Code or the terminal with the command:
 
-python train_linear_regression.py  
+```bash
+python train_linear_regression.py
+```
 
 After running, the program automatically creates a **results** folder containing three essential files:  
 - **preprocessed_dataset.csv** → cleaned dataset ready for training  
@@ -47,6 +49,7 @@ FINAL_PROJECT_ALG/
           soh_prediction_plot.png  
      README.md - Project documentation  
      explanatory_document.pdf 
+
 
 
 
