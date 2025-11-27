@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battery Health Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>🔋 Battery Pack SOH Prediction Chatbot</h2>
+
+<div id="chatbox"></div>
+<div id="typingIndicator">Bot is typing...</div>
+
+<input id="msg" placeholder="Ask a question… or type 'check battery'">
+<button onclick="sendChat()">Send</button>
+
+<!-- Voltage Grid -->
+<div id="batteryDisplay" class="hidden">
+    <h3>Entered Voltages</h3>
+    <div id="batteryStatus">No voltages entered yet.</div>
+    <div id="batteryGrid"></div>
+</div>
+
+<!-- Health Panel -->
+<div id="healthDisplay" class="hidden">
+    <h3>Battery Health Result</h3>
+    <div id="healthSOH"></div>
+    <div id="healthStatus"></div>
+</div>
+
+<script>
+const chatbox = document.getElementById("chatbox");
+const typingIndicator = document.getElementById("typingIndicator");
+
+let collecting = false;
+let readings = [];
+let currentIndex = 1;
+
+// Enter key to send
+document.getElementById("msg").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendChat();
+    }
+});
+
+function addBubble(text, type) {
+    const div = document.createElement("div");
+    div.className = type;
+    div.innerHTML = `<span class="bubble-label">${type === "user" ? "You:" : type === "bot" ? "Bot:" : "Error:"}</span>${text.replace(/\n/g,"<br>")}`;
+    chatbox.appendChild(div);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+function showTyping(){ typingIndicator.style.display = "block"; }
+function hideTyping(){ typingIndicator.style.display = "none"; }
+
+// Voltage Grid Update
+function updateBatteryDisplay() {
+    const display = document.getElementById("batteryDisplay");
+    const status = document.getElementById("batteryStatus");
+    const grid = document.getElementById("batteryGrid");
+
+    if (!collecting) {
+        display.classList.add("hidden");
+        return;
+    }
+
+    display.classList.remove("hidden");
+
+    if (readings.length === 0) {
+        status.textContent = "No voltages entered yet.";
+        grid.innerHTML = "";
+        return;
+    }
+
+    status.textContent = `${readings.length}/21 entered:`;
+    grid.innerHTML = "";
+
+    readings.forEach((v, i) => {
+        grid.innerHTML += `<div class="battery-cell">U${i+1}: ${v}V</div>`;
+    });
+}
+
+async function sendChat() {
+    const msg = document.getElementById("msg").value.trim();
+    if (!msg) return;
+
+    addBubble(msg, "user");
+    document.getElementById("msg").value = "";
+
+    if (!collecting && msg.toLowerCase().includes("check battery")) {
+        collecting = true;
+        readings = [];
+        currentIndex = 1;
+
+        document.getElementById("healthDisplay").classList.add("hidden");
+        updateBatteryDisplay();
+
+        addBubble("Enter voltage for U1:", "bot");
+        return;
+    }
+
+    if (collecting) {
+        await handleSingleVoltage(msg);
+        return;
+    }
+
+    await askBot(msg);
+}
+
+async function handleSingleVoltage(msg) {
+    const v = parseFloat(msg);
+
+    if (isNaN(v)) {
+        addBubble("Invalid input. Please enter a number.", "errorMsg");
+        addBubble(`Re-enter U${currentIndex}:`, "bot");
+        return;
+    }
+
+    readings.push(v);
+    updateBatteryDisplay();
+
+    if (readings.length < 21) {
+        currentIndex++;
+        addBubble(`U${currentIndex - 1} recorded: ${readings[currentIndex - 2]} V.\nEnter U${currentIndex}:`, "bot");
+        return;
+    }
+
+    collecting = false;
+    updateBatteryDisplay();
+
+    addBubble("All 21 voltages received. Predicting SOH...", "bot");
+
+    await predictSOH(readings);
+
+    readings = [];
+    updateBatteryDisplay();
+}
+
+async function askBot(message) {
+    showTyping();
+    const res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+    hideTyping();
+    addBubble(data.reply, "bot");
+}
+
+// SOH Prediction
+async function predictSOH(values) {
+    showTyping();
+
+    const res = await fetch("/predict", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ voltages: values })
+    });
+
+    const data = await res.json();
+    hideTyping();
+
+    if (data.error) {
+        addBubble(data.error, "errorMsg");
+        return;
+    }
+
+    addBubble(`Predicted SOH: ${data.soh}\n${data.status}`, "bot");
+
+    // Fill the health panel
+    document.getElementById("healthSOH").textContent = `SOH: ${data.soh}`;
+    document.getElementById("healthStatus").textContent = data.status;
+
+    document.getElementById("healthDisplay").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
