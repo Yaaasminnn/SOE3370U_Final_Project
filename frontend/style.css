@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #e9edf1;
+    padding: 20px;
+    margin: 0;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#chatbox {
+    background: #ffffff;
+    border: 1px solid #ccd1d5;
+    height: 500px;
+    padding: 15px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+#typingIndicator {
+    display: none;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    width: 70%;
+    font-size: 14px;
+    margin-right: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover { background-color: #217dbb; }
+
+.user, .bot, .errorMsg {
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 10px;
+    max-width: 75%;
+}
+
+.user { background: #d6eaff; border-radius: 10px 10px 0 10px; }
+.bot { background: #f0f0f0; border-radius: 10px 10px 10px 0; }
+.errorMsg { background: #ffdddd; border: 1px solid #ff8080; }
+
+.bubble-label { font-weight: bold; margin-right: 5px; }
+
+/* -------------------------
+   Voltage Grid
+-------------------------- */
+#batteryDisplay {
+    background: #ffffff;
+    padding: 10px;
+    border: 1px solid #ccd1d5;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.05);
+}
+
+#batteryDisplay.hidden { display: none; }
+
+#batteryDisplay h3 {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    color: #2c3e50;
+}
+
+#batteryStatus {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #555;
+}
+
+#batteryGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.battery-cell {
+    padding: 4px 6px;
+    background: #f8f9fa;
+    border: 1px solid #dcdfe2;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* -------------------------
+   Battery Health Panel
+-------------------------- */
+#healthDisplay {
+    background: #ffffff;
+    padding: 12px;
+    border: 1px solid #ccd1d5;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.05);
+}
+
+#healthDisplay.hidden { display: none; }
+
+#healthDisplay h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+#healthSOH {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+#healthStatus {
+    font-size: 14px;
+    color: #444;
+}
