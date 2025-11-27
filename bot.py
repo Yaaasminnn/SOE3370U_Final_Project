@@ -3,6 +3,7 @@
 import os
 import joblib
 import pandas as pd
+import google.generativeai as genai
 
 # API Key Setup
 try:
@@ -10,7 +11,6 @@ try:
         key = open("key", "r").read().strip()
         os.environ["GEMINI_API_KEY"] = key
 
-        import google.generativeai as genai
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
         model_name = "models/gemini-2.5-flash"
