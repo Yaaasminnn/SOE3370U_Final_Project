@@ -17,7 +17,7 @@ The system requires Python version 3.9 or later for execution.
 To install the required libraries, run the following command in the terminal:
 
 ```bash
-pip install pandas numpy scikit-learn matplotlib openpyxl flash
+pip install pandas numpy scikit-learn matplotlib openpyxl flask google-generativeai
 ```
 
 Both **train_linear_regression.py** and **PulseBat Dataset (1).xlsx** must be located in the same directory.  
@@ -60,6 +60,7 @@ FINAL_PROJECT_ALG/
           soh_prediction_plot.png  
      README.md - Project documentation  
      explanatory_document.pdf 
+
 
 
 
