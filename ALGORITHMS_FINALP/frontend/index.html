@@ -55,7 +55,7 @@ function addBubble(text, type) {
 function showTyping(){ typingIndicator.style.display = "block"; }
 function hideTyping(){ typingIndicator.style.display = "none"; }
 
-// Voltage Grid Update
+// Voltage Grid Update  **ONLY CHANGE: width:50px added**
 function updateBatteryDisplay() {
     const display = document.getElementById("batteryDisplay");
     const status = document.getElementById("batteryStatus");
@@ -78,8 +78,24 @@ function updateBatteryDisplay() {
     grid.innerHTML = "";
 
     readings.forEach((v, i) => {
-        grid.innerHTML += `<div class="battery-cell">U${i+1}: ${v}V</div>`;
+        grid.innerHTML += `
+            <div class="battery-cell">
+                U${i+1}: 
+                <input type="number"
+                       step="any"
+                       value="${v}"
+                       onchange="editVoltage(${i}, this.value)"
+                       class="volt-input"
+                       style="width:80px;">
+                V
+            </div>`;
     });
+}
+
+// Save edited voltages
+function editVoltage(index, value) {
+    const num = parseFloat(value);
+    if (!isNaN(num)) readings[index] = num;
 }
 
 async function sendChat() {
@@ -171,7 +187,6 @@ async function predictSOH(values) {
 
     addBubble(`Predicted SOH: ${data.soh}\n${data.status}`, "bot");
 
-    // Fill the health panel
     document.getElementById("healthSOH").textContent = `SOH: ${data.soh}`;
     document.getElementById("healthStatus").textContent = data.status;
 

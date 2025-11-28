@@ -64,10 +64,10 @@ def askGemini(prompt):
 
         structured_prompt = f"""
         Answer in a short and structured format:
-        - Max 4 bullet points.
-        - Short sentences.
+        - Max 8 bullet points.
+        - Sentences should not be too long.
         - No long paragraphs.
-        - No markdown symbols like **, ### or lists.
+        - No markdown symbols like *, **, ### or lists.
         - Keep it concise and clear.
 
         User question:
